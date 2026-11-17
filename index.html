@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100d1c"><meta name="description" content="Personal Gift Card Wallet">
+<link rel="manifest" href="manifest.json"><link rel="stylesheet" href="style.css">
+<title>My Gift Wallet</title>
+</head>
+<body>
+<div id="lockScreen" class="lock-screen hidden">
+  <div class="lock-card"><div class="logo">✦</div><h1>My Gift Wallet</h1><p id="lockText">अपना PIN डालें</p>
+  <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="4–8 digit PIN">
+  <button id="unlockBtn" class="primary">Unlock</button><small id="lockHint">पहली बार इस्तेमाल पर नया PIN सेट करें।</small>
+  </div>
+</div>
+<header class="topbar">
+  <div><div class="eyebrow">YOUR PERSONAL VAULT</div><h1>My Gift <span>Wallet</span></h1></div>
+  <button id="settingsBtn" class="icon-btn" aria-label="Settings">⚙</button>
+</header>
+<main id="appMain">
+  <section class="hero">
+    <div class="hero-label">कुल Gift Cards</div><div class="hero-number" id="totalCount">0</div>
+    <div class="stats">
+      <div><b id="activeCount">0</b><span>Active</span></div>
+      <div><b id="usedCount">0</b><span>Used</span></div>
+      <div><b id="expiredCount">0</b><span>Expired</span></div>
+    </div>
+  </section>
+  <div class="section-head"><div><div class="eyebrow">YOUR COLLECTION</div><h2>मेरे Gift Cards</h2></div><button id="addBtn" class="primary add-btn">＋ Add Card</button></div>
+  <div class="toolbar"><input id="search" type="search" placeholder="Search name, store, order ID…"><select id="filter"><option value="all">All Cards</option><option>Active</option><option>Used</option><option>Expired</option></select></div>
+  <section id="cardList" class="card-list"></section>
+  <div id="emptyState" class="empty"><div class="empty-icon">🎁</div><h3>अभी कोई Gift Card नहीं</h3><p>अपना पहला कार्ड जोड़ें और उसका purchase व redemption proof सुरक्षित रखें।</p><button class="primary" id="emptyAdd">＋ Add your first card</button></div>
+  <section class="backup-panel"><div><b>Backup & Restore</b><p>अपने कार्ड और attachments की backup file अपने पास रखें।</p></div><div class="backup-actions"><button id="exportBtn" class="secondary">Export Backup</button><button id="importBtn" class="secondary">Import</button><input id="importFile" type="file" accept="application/json" hidden></div></section>
+  <p class="footnote">🔒 आपका डेटा इसी डिवाइस/ब्राउज़र में सेव होता है। इसे नियमित रूप से Export Backup करें।</p>
+</main>
+<div id="editor" class="modal hidden"><div class="sheet"><div class="sheet-head"><div><div class="eyebrow">CARD DETAILS</div><h2 id="editorTitle">Add Gift Card</h2></div><button class="icon-btn close" data-close="editor">✕</button></div>
+<form id="cardForm">
+<input type="hidden" id="cardId">
+<label>Gift Card / Brand Name *<input id="name" required placeholder="जैसे PlayStation, Amazon"></label>
+<div class="grid2"><label>Amount (₹)<input id="amount" type="number" min="0" step="0.01" placeholder="3000"></label><label>Status<select id="status"><option>Active</option><option>Used</option><option>Expired</option></select></label></div>
+<label>Gift Card Number / Code<input id="code" autocomplete="off" placeholder="Gift card code"></label>
+<div class="grid2"><label>Purchase Date<input id="purchaseDate" type="date"></label><label>Expiry Date<input id="expiryDate" type="date"></label></div>
+<label>Purchased From<input id="store" placeholder="Amazon, store, website…"></label>
+<label>Order ID / Transaction ID<input id="orderId" placeholder="Optional"></label>
+<label>Redemption / Used Date<input id="usedDate" type="date"></label>
+<label>Notes<textarea id="notes" rows="3" placeholder="कहाँ और कैसे इस्तेमाल किया…"></textarea></label>
+<div class="upload-box"><b>📎 Proof Attachments</b><p>Purchase screenshot, payment proof, redemption screenshot या video जोड़ें।</p><input id="attachments" type="file" accept="image/*,video/*,.pdf" multiple><div id="attachmentList" class="attachment-list"></div></div>
+<div class="form-actions"><button type="button" class="secondary" data-close="editor">Cancel</button><button type="submit" class="primary">Save Gift Card</button></div>
+</form></div></div>
+<div id="detail" class="modal hidden"><div class="sheet"><div class="sheet-head"><div><div class="eyebrow">GIFT CARD RECORD</div><h2 id="detailTitle">Details</h2></div><button class="icon-btn close" data-close="detail">✕</button></div><div id="detailBody"></div><div class="form-actions"><button id="deleteBtn" class="danger">Delete</button><button id="editBtn" class="primary">Edit Card</button></div></div></div>
+<div id="settings" class="modal hidden"><div class="sheet"><div class="sheet-head"><div><div class="eyebrow">PRIVACY</div><h2>Settings</h2></div><button class="icon-btn close" data-close="settings">✕</button></div><p class="muted">PIN lock इस ऐप को खोलते समय एक अतिरिक्त स्क्रीन दिखाता है। यह अभी encrypted storage नहीं है।</p><label>Set / Change PIN<input id="newPin" type="password" inputmode="numeric" maxlength="8" placeholder="4–8 digit PIN"></label><div class="form-actions"><button id="removePin" class="secondary">Remove PIN</button><button id="savePin" class="primary">Save PIN</button></div><hr><p class="muted">डेटा इसी ब्राउज़र में रहता है। Browser data clear करने या फोन बदलने से पहले backup export करें।</p></div></div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body></html>
